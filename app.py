@@ -4,8 +4,8 @@ import numpy as np
 import os
 import csv
 import datetime
-#from camera_pi import Camera
-#import face_recog as face
+from camera_pi import Camera
+import face_recog as face
 recognizer = cv2.face.createLBPHFaceRecognizer()
 recognizer.load('trainer/trainer.yml')
 cascadePath = "C:/Users/Kamil/Documents/face/friday webapp/webapp/Cascades/haarcascade_frontalface_default.xml"
@@ -13,20 +13,26 @@ faceCascade = cv2.CascadeClassifier(cascadePath);
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 
+#generet
+
 names = ['None', 'Akshay', 'Chaitanya', 'Ilza', 'Z', 'W'] 
 
 app = Flask(__name__)
 
-@app.route('/', methods = ["GET","POST")
-def index():
-    if request.method == "GET":
+@app.route('/', methods = ["GET","POST"])
+def contact():
+      if "checkout_button" in request.form: #name="checkout_button" is the value request.form['checkout_button] = checkout  (value)
+        print(request.form["checkout_button"])
+        return render_template('recog.html')
+      elif "checkin_button" in request.form:
+        print('checkin button')
+        return render_template('recog.html')
+      else:
           return render_template('index.html')
-    else:
-          return
 
 @app.route('/recog')
 def recog():
-    """Video Streaming Home Page."""
+    """Video Strea  ming Home Page."""
     return render_template('recog.html')
 
 #def gen(camera):
